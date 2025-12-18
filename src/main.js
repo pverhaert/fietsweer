@@ -154,7 +154,7 @@ function updateUI(data, isHourly, address) {
         const time = date.getHours() + ":00";
         const temp = Math.round(isHourly ? item.temp : item.main.temp);
         const windSpeed = Math.round((isHourly ? item.wind_speed : item.wind.speed) * 3.6); // km/h
-        const windDeg = isHourly ? item.wind_deg : item.wind.deg;
+        const windDeg = (isHourly ? item.wind_deg : item.wind?.deg) ?? 0;
         const iconCode = item.weather[0].icon;
 
         const block = document.createElement('div');
