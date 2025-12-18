@@ -1,0 +1,10 @@
+.idea
+dist
+node_modules
+.DS_Store
+.vscode
+src/dev-dist
+# Local Netlify folder
+.netlify
+.env
+todo.md

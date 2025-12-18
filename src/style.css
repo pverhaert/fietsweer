@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@theme {
+    --color-tm-orange: #fa6533;
+    --color-tm-blue: #00293d;
+    --color-tm-teal: #64c9c9;
+    --color-tm-dark-teal: #006680;
+    --color-tm-gray: #f5f7f9;
+}
+
+@layer base {
+    body {
+        @apply bg-tm-gray text-tm-blue antialiased overflow-hidden;
+    }
+}
+
+@layer components {
+    .glass {
+        @apply bg-white/70 backdrop-blur-md border border-white/30 shadow-xl;
+    }
+}
+
+#map {
+    height: 100vh;
+    width: 100vw;
+}
+
+.modal-drag-handle {
+    @apply cursor-move p-2 flex justify-center items-center;
+    height: 24px;
+}
+
+#forecast-container::-webkit-scrollbar {
+    display: none;
+}
+
+#forecast-container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
