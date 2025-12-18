@@ -34,33 +34,39 @@
         <div id="modal-content"
             class="overflow-hidden transition-[max-height,opacity] duration-500 ease-in-out max-h-[500px]">
             <div class="p-4 md:p-6">
-                <h1 id="location-name"
-                    class="text-sm md:text-base font-bold uppercase tracking-wider text-tm-blue/60 mb-3 md:mb-5 text-center">
-                    Laden...</h2>
+                <div class="flex items-center justify-center gap-2 mb-3 md:mb-5">
+                    <h1 id="location-name"
+                        class="text-sm md:text-base font-bold uppercase tracking-wider text-tm-blue/60 text-center">
+                        Laden...</h1>
+                    <button id="locate-btn" class="text-tm-orange hover:text-tm-blue transition-colors p-1"
+                        aria-label="Gebruik mijn locatie">
+                        <i data-lucide="crosshair" class="w-4 h-4 md:w-5 md:h-5"></i>
+                    </button>
+                </div>
 
-                    <div id="forecast-container" class="flex justify-between items-center gap-2 overflow-x-auto pb-2">
-                        <!-- 4 blocks will be injected here -->
-                        <div class="flex-1 flex flex-col items-center p-2 rounded-xl bg-white/40 min-w-[70px]">
-                            <div class="w-8 h-8 bg-gray-200 animate-pulse rounded-full mb-2"></div>
-                            <div class="h-3 w-8 bg-gray-200 animate-pulse rounded mb-1"></div>
-                            <div class="h-3 w-10 bg-gray-200 animate-pulse rounded"></div>
-                        </div>
-                        <div class="flex-1 flex flex-col items-center p-2 rounded-xl bg-white/40 min-w-[70px]">
-                            <div class="w-8 h-8 bg-gray-200 animate-pulse rounded-full mb-2"></div>
-                            <div class="h-3 w-8 bg-gray-200 animate-pulse rounded mb-1"></div>
-                            <div class="h-3 w-10 bg-gray-200 animate-pulse rounded"></div>
-                        </div>
-                        <div class="flex-1 flex flex-col items-center p-2 rounded-xl bg-white/40 min-w-[70px]">
-                            <div class="w-8 h-8 bg-gray-200 animate-pulse rounded-full mb-2"></div>
-                            <div class="h-3 w-8 bg-gray-200 animate-pulse rounded mb-1"></div>
-                            <div class="h-3 w-10 bg-gray-200 animate-pulse rounded"></div>
-                        </div>
-                        <div class="flex-1 flex flex-col items-center p-2 rounded-xl bg-white/40 min-w-[70px]">
-                            <div class="w-8 h-8 bg-gray-200 animate-pulse rounded-full mb-2"></div>
-                            <div class="h-3 w-8 bg-gray-200 animate-pulse rounded mb-1"></div>
-                            <div class="h-3 w-10 bg-gray-200 animate-pulse rounded"></div>
-                        </div>
+                <div id="forecast-container" class="flex justify-between items-center gap-2 overflow-x-auto pb-2">
+                    <!-- 4 blocks will be injected here -->
+                    <div class="flex-1 flex flex-col items-center p-2 rounded-xl bg-white/40 min-w-[70px]">
+                        <div class="w-8 h-8 bg-gray-200 animate-pulse rounded-full mb-2"></div>
+                        <div class="h-3 w-8 bg-gray-200 animate-pulse rounded mb-1"></div>
+                        <div class="h-3 w-10 bg-gray-200 animate-pulse rounded"></div>
                     </div>
+                    <div class="flex-1 flex flex-col items-center p-2 rounded-xl bg-white/40 min-w-[70px]">
+                        <div class="w-8 h-8 bg-gray-200 animate-pulse rounded-full mb-2"></div>
+                        <div class="h-3 w-8 bg-gray-200 animate-pulse rounded mb-1"></div>
+                        <div class="h-3 w-10 bg-gray-200 animate-pulse rounded"></div>
+                    </div>
+                    <div class="flex-1 flex flex-col items-center p-2 rounded-xl bg-white/40 min-w-[70px]">
+                        <div class="w-8 h-8 bg-gray-200 animate-pulse rounded-full mb-2"></div>
+                        <div class="h-3 w-8 bg-gray-200 animate-pulse rounded mb-1"></div>
+                        <div class="h-3 w-10 bg-gray-200 animate-pulse rounded"></div>
+                    </div>
+                    <div class="flex-1 flex flex-col items-center p-2 rounded-xl bg-white/40 min-w-[70px]">
+                        <div class="w-8 h-8 bg-gray-200 animate-pulse rounded-full mb-2"></div>
+                        <div class="h-3 w-8 bg-gray-200 animate-pulse rounded mb-1"></div>
+                        <div class="h-3 w-10 bg-gray-200 animate-pulse rounded"></div>
+                    </div>
+                </div>
             </div>
 
             <div id="modal-footer" class="mt-1 border-t border-tm-blue/10 pt-3 md:pt-4 text-center">

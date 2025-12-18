@@ -1,5 +1,5 @@
 import L from 'leaflet';
-import { createIcons, Sun, Cloud, CloudRain, CloudLightning, CloudSnow, Wind, Navigation, Droplet, ChevronDown } from 'lucide';
+import { createIcons, Sun, Cloud, CloudRain, CloudLightning, CloudSnow, Wind, Navigation, Droplet, ChevronDown, Crosshair } from 'lucide';
 
 // Brand Colors
 const TM_ORANGE = '#fa6533';
@@ -206,7 +206,7 @@ function updateUI(data, isHourly, address) {
         link.href = `https://openweathermap.org/img/wn/${currentIcon}.png`;
     }
     createIcons({
-        icons: { Sun, Cloud, CloudRain, CloudLightning, CloudSnow, Wind, Navigation, Droplet, ChevronDown }
+        icons: { Sun, Cloud, CloudRain, CloudLightning, CloudSnow, Wind, Navigation, Droplet, ChevronDown, Crosshair }
     });
 }
 
@@ -321,20 +321,52 @@ function stopDragging() {
     document.removeEventListener('touchend', stopDragging);
 }
 
-// 4. Geolocation & Execution
-if ("geolocation" in navigator) {
-    navigator.geolocation.getCurrentPosition((position) => {
-        const { latitude, longitude } = position.coords;
-        initMap(latitude, longitude);
-        fetchWeather(latitude, longitude);
-    }, (error) => {
-        console.error("Geolocation error:", error);
+// 4. Geolocation Logic
+function requestLocation() {
+    const locName = document.getElementById('location-name');
+    locName.textContent = "Geolocatie zoeken...";
+
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const { latitude, longitude } = position.coords;
+                initMap(latitude, longitude);
+                fetchWeather(latitude, longitude);
+            },
+            (error) => {
+                console.error("Geolocation error:", error);
+
+                // Show specific feedback if possible, or just default
+                let msg = "Locatie toegang geweigerd";
+                if (error.code === error.PERMISSION_DENIED) {
+                    msg = "Toegang geweigerd. Zet locatie aan.";
+                } else if (error.code === error.TIMEOUT) {
+                    msg = "Time-out locatiebepaling.";
+                }
+                alert(`${msg} Standaardlocatie wordt geladen.`);
+
+                // Default to Kasterlee
+                initMap(51.20095, 4.90426);
+                fetchWeather(51.20095, 4.90426);
+            },
+            {
+                enableHighAccuracy: true,
+                timeout: 5000,
+                maximumAge: 0
+            }
+        );
+    } else {
+        alert("Geolocatie wordt niet ondersteund door deze browser.");
         // Default to Kasterlee
         initMap(51.20095, 4.90426);
         fetchWeather(51.20095, 4.90426);
-    });
-} else {
-    // Default to Kasterlee
-    initMap(51.20095, 4.90426);
-    fetchWeather(51.20095, 4.90426);
+    }
 }
+
+// 5. Execution
+document.getElementById('locate-btn')?.addEventListener('click', () => {
+    requestLocation();
+});
+
+// Auto-start
+requestLocation();
