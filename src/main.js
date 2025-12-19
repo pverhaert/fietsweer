@@ -1,5 +1,6 @@
 import L from 'leaflet';
 import { createIcons, Sun, Cloud, CloudRain, CloudLightning, CloudSnow, Wind, Navigation, Droplet, ChevronDown, Crosshair } from 'lucide';
+import { WindParticles } from './windParticles.js';
 
 // Brand Colors
 const TM_ORANGE = '#fa6533';
@@ -13,6 +14,12 @@ let isDragging = false;
 let currentPos = { x: 0, y: 0 };
 let offset = { x: 0, y: 0 };
 let isCollapsed = false;
+let windOverlay;
+
+const windCanvas = document.getElementById('wind-canvas');
+if (windCanvas) {
+    windOverlay = new WindParticles(windCanvas);
+}
 
 // Weather API Config
 const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
@@ -141,6 +148,22 @@ function updateUI(data, isHourly, address) {
     const container = document.getElementById('forecast-container');
     container.innerHTML = '';
 
+    // Update Wind Particles based on current weather
+    if (windOverlay) {
+        let currentItem;
+        if (isHourly) {
+            currentItem = data.hourly[0];
+        } else {
+            currentItem = data.list[0];
+        }
+
+        if (currentItem) {
+            const speed = (isHourly ? currentItem.wind_speed : currentItem.wind.speed) * 3.6; // km/h
+            const deg = (isHourly ? currentItem.wind_deg : currentItem.wind?.deg) ?? 0;
+            windOverlay.updateWind(speed, deg);
+        }
+    }
+
     // Take next 4 hours or entries
     let forecast;
     if (isHourly) {
@@ -185,10 +208,6 @@ function updateUI(data, isHourly, address) {
                     <span class="text-[9px] md:text-xs font-bold">${rainChance}%</span>
                     ${rainVolume > 0 ? `<span class="text-[8px] md:text-[10px] opacity-70 ml-0.5">${rainVolume.toFixed(1)}mm</span>` : ''}
                 </div>
-                <div class="w-3 h-3 md:w-5 md:h-5 flex items-center justify-center transition-transform duration-500" style="transform: rotate(${windDeg}deg)">
-                    <i data-lucide="navigation" class="w-full h-full text-tm-orange"></i>
-                </div>
-            </div>
             </div>
         `;
         container.appendChild(block);
